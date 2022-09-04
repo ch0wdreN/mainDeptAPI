@@ -1,0 +1,14 @@
+allow:
+  - run
+  - write
+  - read
+  - net
+  - env
+
+envFile:
+  - .env
+
+scripts:
+  start:
+    desc: Start local server
+    cmd: deno run --watch=static/,routes/ dev.ts
