@@ -1,9 +1,9 @@
-import { Client } from 'postgres';
+import {Client} from 'postgres';
 import 'dotenv/load.ts';
 
 export interface Result {
-  name: string;
-  score: number;
+  name: string | null;
+  score: number | null;
 }
 
 const client = new Client({
@@ -20,26 +20,25 @@ const client = new Client({
 await client.connect();
 
 /**
- * @param Result {name: string, score: number}
- * @return if succesfully return sended value;if not return error
+ * @param result {name: string, score: number}
+ * @return if successfully return sended value;if not return error
  */
 export const postResult = async (result: Required<Result>) => {
   try {
-    const postedResult = await client.queryObject(
-      'INSERT INTO score (NAME, SCORE) VALUES ($1, $2) RETURNING *',
-      [result.name, result.score],
+    return await client.queryObject(
+        'INSERT INTO score (NAME, SCORE) VALUES ($1, $2) RETURNING *',
+        [result.name, result.score],
     );
-    return new Response(JSON.stringify(postedResult));
   } catch (e) {
     console.error(e);
-    return new Response(e);
+    return e;
   }
 };
 
 export const getAllResult = async () => {
   try {
     const reservedResult = await client.queryObject(
-      'SELECT NMAE, SCORE FROM score',
+      'SELECT NAME, SCORE FROM score',
     );
     return new Response(JSON.stringify(reservedResult));
   } catch (e) {
@@ -47,5 +46,3 @@ export const getAllResult = async () => {
     return new Response(e);
   }
 };
-
-await client.end();
