@@ -1,4 +1,4 @@
-import {Client} from 'postgres';
+import { Client } from 'postgres';
 import 'dotenv/load.ts';
 
 export interface Result {
@@ -25,24 +25,28 @@ await client.connect();
  */
 export const postResult = async (result: Required<Result>) => {
   try {
-    return await client.queryObject(
-        'INSERT INTO score (NAME, SCORE) VALUES ($1, $2) RETURNING *',
-        [result.name, result.score],
+    await client.queryObject<Result>(
+      'INSERT INTO score (name, score) VALUES ($1, $2)',
+      [result.name, result.score],
     );
+    return getAllResult();
   } catch (e) {
     console.error(e);
     return e;
   }
 };
 
+/**
+ * @return if successfully return all values order by score;if not return error
+ */
 export const getAllResult = async () => {
   try {
-    const reservedResult = await client.queryObject(
-      'SELECT NAME, SCORE FROM score',
+    const result = await client.queryObject<Result>(
+      'SELECT score.name, score.score FROM score ORDER BY score DESC ',
     );
-    return new Response(JSON.stringify(reservedResult));
+    return result.rows;
   } catch (e) {
     console.error(e);
-    return new Response(e);
+    return e;
   }
 };
