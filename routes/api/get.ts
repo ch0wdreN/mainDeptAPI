@@ -1,5 +1,5 @@
-import { Handlers } from '$fresh/server.ts';
-import { getAllResult } from '@db';
+import {Handlers} from '$fresh/server.ts';
+import {getAllResult} from '@db';
 
 export const handler: Handlers = {
   async GET(_req: Request) {
