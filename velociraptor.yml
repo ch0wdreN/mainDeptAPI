@@ -11,4 +11,8 @@ envFile:
 scripts:
   start:
     desc: Start local server
-    cmd: deno run --watch=static/,routes/ dev.ts
+    cmd: deno run --watch --unstable --compat ./main.ts
+
+  fmt:
+    desc: deno fmt
+    cmd: deno fmt
