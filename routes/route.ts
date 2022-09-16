@@ -1,4 +1,4 @@
-import { Router, RouterContext } from 'oak/mod.ts';
+import {Router, RouterContext} from 'oak/mod.ts';
 import { DB } from '@db';
 
 const router = new Router();
@@ -16,5 +16,8 @@ router
     const name = ctx.params.name;
     ctx.response.body = await db.getResultByName(name);
   })
-
+  .post('/send',  async (ctx) => {
+    const data = await ctx.request.body().value
+    ctx.response.body = await db.postResult(data)
+  });
 export default router;
