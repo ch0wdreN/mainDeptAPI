@@ -1,6 +1,6 @@
 import { Client } from 'postgres';
 import 'dotenv/load.ts';
-import {Result} from "./result.ts";
+import { Result } from './result.ts';
 
 export class DB {
   client = new Client({
@@ -18,12 +18,7 @@ export class DB {
     await this.client.connect();
   };
 
-  private _disconnect = async () => {
-    await this.client.end();
-  }
-
   /**
-   *
    * @return Return an array of Result type
    */
   public getAllResult = async (): Promise<Result[]> => {
@@ -34,7 +29,6 @@ export class DB {
   };
 
   /**
-   *
    * @param param: string
    * @return Returns an array of Result type matching the parameter name
    */
@@ -45,4 +39,16 @@ export class DB {
     );
     return result.rows;
   };
+
+  /**
+   * @param result: Result
+   * @return Return all at DB after sending results
+   */
+  public postResult = async (result: Result): Promise<() => Promise<Result[]>> => {
+    await this.client.queryObject(
+        'INSERT INTO score (name, score) VALUES ($1, $2)',
+        [result.name, result.score]
+    )
+    return this.getAllResult;
+  }
 }
