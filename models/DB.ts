@@ -44,11 +44,13 @@ export class DB {
    * @param result: Result
    * @return Return all at DB after sending results
    */
-  public postResult = async (result: Result): Promise<() => Promise<Result[]>> => {
+  public postResult = async (
+    result: Result,
+  ): Promise<() => Promise<Result[]>> => {
     await this.client.queryObject(
-        'INSERT INTO score (name, score) VALUES ($1, $2)',
-        [result.name, result.score]
-    )
+      'INSERT INTO score (name, score) VALUES ($1, $2)',
+      [result.name, result.score],
+    );
     return this.getAllResult;
-  }
+  };
 }
