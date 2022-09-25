@@ -16,3 +16,7 @@ scripts:
   fmt:
     desc: deno fmt
     cmd: deno fmt
+
+  test:
+    desc: deno test
+    cmd: deno test --watch .
