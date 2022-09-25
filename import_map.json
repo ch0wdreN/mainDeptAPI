@@ -3,6 +3,7 @@
     "@db": "./models/DB.ts",
     "postgres": "https://deno.land/x/postgres@v0.16.1/mod.ts",
     "dotenv/": "https://deno.land/x/dotenv@v3.2.0/",
-    "oak/": "https://deno.land/x/oak@v11.1.0/"
+    "oak/": "https://deno.land/x/oak@v11.1.0/",
+    "testing/": "https://deno.land/std@0.157.0/testing/"
   }
 }
