@@ -16,7 +16,7 @@ Deno.test('Database', async (t) => {
     const result = await db.getResultByName('testUser');
     assertEquals(result, [data]);
   });
-  await t.step('delete resukt', async () => {
+  await t.step('delete result', async () => {
     await db.deleteResult('testUser');
     const result = await db.getResultByName('testUser');
     assertEquals(result, []);
