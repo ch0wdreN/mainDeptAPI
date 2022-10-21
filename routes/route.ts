@@ -23,6 +23,10 @@ router
     const name = ctx.params.name;
     ctx.response.body = await db.getResultByName(name);
   })
+  .delete('/delete/:name', async (ctx) => {
+    const name = ctx.params.name;
+    ctx.response.body = await db.deleteResult(name);
+  })
   .post('/send', async (ctx) => {
     const data = await ctx.request.body().value;
     ctx.response.body = await db.postResult(data);

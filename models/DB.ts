@@ -53,4 +53,17 @@ export class DB {
     );
     return this.getAllResult;
   };
+
+  /**
+   * delete data when matching the parameter name
+   * @param param: string
+   * @return Returns an array of Result type
+   */
+  public deleteResult = async (param: string): Promise<Result[]> => {
+    const result = await this.client.queryObject(
+      'DELETE FROM score WHERE score.name = $1',
+      [param],
+    );
+    return this.getAllResult();
+  };
 }
