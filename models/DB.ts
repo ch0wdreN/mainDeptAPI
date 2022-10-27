@@ -60,9 +60,9 @@ export class DB {
    * @return Returns an array of Result type
    */
   public deleteResult = async (param: string): Promise<Result[]> => {
-    const result = await this.client.queryObject(
-      'DELETE FROM score WHERE score.name = $1',
-      [param],
+    await this.client.queryObject(
+        'DELETE FROM score WHERE score.name = $1',
+        [param],
     );
     return this.getAllResult();
   };
