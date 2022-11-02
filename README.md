@@ -8,3 +8,7 @@ Start the project:
 ```
 $ vr start
 ```
+or
+```
+deno run -A --watch --unstable ./main.ts
+```
