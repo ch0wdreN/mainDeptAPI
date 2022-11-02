@@ -10,7 +10,12 @@ export class Sockets {
 
   public broadcast = (message: string) => {
     this.sockets.forEach((socket) => {
-      socket.socket.send(message);
+      while(true) {
+        if(socket.socket.readyState === WebSocket.OPEN){
+          socket.socket.send(message);
+          break;
+        }
+      }
     });
   }
 
