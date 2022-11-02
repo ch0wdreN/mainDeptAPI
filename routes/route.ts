@@ -1,6 +1,6 @@
 import { Router, send } from "oak/mod.ts";
 import { DB } from "@db";
-import { Sockets } from "../controllers/Sockets.ts";
+import { Sockets } from "@c/Sockets.ts";
 
 const router = new Router();
 const db = new DB();
